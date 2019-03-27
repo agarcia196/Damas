@@ -24,13 +24,19 @@ $(document).ready(function() {
 	//$(".ficha1").draggable({ revert: 'invalid' });
 	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
 	var grid = $( ".ficha2" ).draggable( "option", "containment" );
-	$( "#row-1-col-2" ).droppable({
-  		accept: ".ficha2",
-  		drop:function(event, ui) {
-  				$( ".ficha1" ).toggle( "explode" );
-  		}
+	for (i = 0; i <8; i++){
+		for(y = 0; y <8; y++){
+			$( "#row-"+i+"-col-"+y ).droppable({
+			//$( "#row-1-col-21" ).droppable({
+  				accept: ".ficha2",
+  				drop:function(event, ui) {
+				  $( ".ficha1" ).toggle( "explode" );
+				  $( )
+  				}
 
-	});
+			});
+		}
+	}
 
 	console.log(grid);
 	//disabled: true 
