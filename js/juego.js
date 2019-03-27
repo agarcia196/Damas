@@ -23,7 +23,6 @@ $(document).ready(function() {
 	}
 	$(".ficha1").draggable({ revert: 'invalid' });
 	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
-<<<<<<< HEAD
 	var grid = $( ".ficha2" ).draggable( "option", "containment" );
 	for (i = 0; i <8; i++){
 		for(y = 0; y <8; y++){
@@ -38,7 +37,6 @@ $(document).ready(function() {
 			});
 		}
 	}
-=======
 
 	for(i = 0; i< 8; i++) {
 		for(y = 0; y < 8; y++) {
