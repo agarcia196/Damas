@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var turnoBlancas = true;
+	console.log(turnoBlancas)
 		for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
 		$("#contenedor").append("<div id=row-" + i + " class='row'></div>")
@@ -36,32 +38,33 @@ $(document).ready(function() {
 					var row_drop = parseInt($(this).attr("data-row"));
 					var col_drop = parseInt($(this).attr("data-col"));
 					if (d.hasClass( "ficha1" )) {
+						console.log(turnoBlancas)
 						if(row_drop  == row - 2) {
 							col_previus = (col > col_drop) ? col_drop + 1 : col_drop - 1;
 							div_id = 'row-' + (row_drop + 1) + "-col-" + col_previus;
-							console.log("leyo que comiendo")
-							return ($("#"+div_id).children().hasClass("ficha2") && !$(this).children().length > 0 );
+							turnoBlancas = !turnoBlancas;
+							return ($("#"+div_id).children().hasClass("ficha2") && !$(this).children().length > 0 && turnoBlancas);
 						}
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
-								console.log("leyo que era sin comer")
-								return (true);
+								turnoBlancas = !turnoBlancas;
+								return (!$(this).children().length > 0 && turnoBlancas);
 							}
 							return (false);
 						}
-						return (false)
+							return (false)
 						//return ((row_drop - 1) == row && (col_drop -1 == col || col_drop + 1 == col) && (! $(this).children().length > 0 ));
 					} else {
 						if(row_drop == row + 2) {
 							col_previus = (col < col_drop) ? col_drop - 1 : col_drop + 1;
 							div_id = 'row-' + (row_drop - 1) + "-col-" + col_previus;
-							console.log("leyo que comiendo")
-							return ($("#"+div_id).children().hasClass("ficha1") && !$(this).children().length > 0 );
+							turnoBlancas = !turnoBlancas;
+							return ($("#"+div_id).children().hasClass("ficha1") && !$(this).children().length > 0 && !turnoBlancas);
 						}
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
-								console.log("leyo que era sin comer")
-								return (true);
+								turnoBlancas = !turnoBlancas;
+								return (!$(this).children().length > 0 && !turnoBlancas);
 							}
 							return (false);
 						}
