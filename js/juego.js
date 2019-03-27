@@ -38,7 +38,7 @@ $(document).ready(function() {
 		}
 	}
 
-	for(i = 0; i< 8; i++) {
+	/*for(i = 0; i< 8; i++) {
 		for(y = 0; y < 8; y++) {
 			// Droppable
 			col_id = 'row-' + i + '-col-' + y;
@@ -86,11 +86,11 @@ $(document).ready(function() {
 					}
 					console.log(parentDiv);
 		  		},
->>>>>>> master
 
 
 			});
 		}
 	}
+	*/
 	//disabled: true 
 });
