@@ -36,7 +36,11 @@ $(document).ready(function() {
 					$(ui.draggable).appendTo($(this));
 					if(ui.draggable.hasClass("ficha1")) {
 						if((row - 2) == row_previus) {
+<<<<<<< HEAD
 							if (col_previus == col+2 || col_previus == col-2){
+=======
+							if (col_previus != col){
+>>>>>>> FichasID
 								col_ = (col_previus > col) ? col_previus - 1 : col_previus + 1;
 								div_id = 'row-' + (row - 1) + "-col-" + col_;
 								$("#" + div_id).empty();
@@ -44,7 +48,11 @@ $(document).ready(function() {
 						}
 					} else {
 						if((row - 2) == row_previus) {
+<<<<<<< HEAD
 							if (col_previus == col+2 || col_previus == col-2){
+=======
+							if (col_previus != col){
+>>>>>>> FichasID
 								col_ = (col_previus > col) ? col_previus - 1 : col_previus + 1;
 								div_id = 'row-' + (row - 1) + "-col-" + col_;
 								$("#" + div_id).empty();
