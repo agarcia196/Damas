@@ -32,6 +32,7 @@ $(document).ready(function() {
   				drop:function(event, ui) {
 				  $( ".ficha1" ).toggle( "explode" );
 				  $( )
+				  comer(".ficha2", ".ficha1");
   				}
 
 			});
@@ -98,12 +99,18 @@ $(document).ready(function() {
 		//posicion en la que se dropea la ficha 2
 		var rowf2 = parseInt($(movida).attr("data-row"));
 		var colf2 = parseInt($(movida).attr("data-col"));
+		console.log(rowf2)
+		console.log(colf2)
 		//posicion en la que estaba antes de ser movida
 		var row_previusf2 = parseInt(ui.draggable.parent().attr("id").substr(4, 1));
 		var col_previusf2 = parseInt(ui.draggable.parent().attr("id").substr(10, 1));
+		console.log(row_previusf2)
+		console.log(col_previusf2)
 		//posicion en la que esta la ficha que sera comida
 		var rowf1 = parseInt($(comida).attr("data-row"));
 		var colf1 = parseInt($(comida).attr("data-col"));
+		console.log(rowf1)
+		console.log(colf1)
 		//este if pregunta si se movio dos casillas hacia abajo y dos casillas hacia la derecha o la izquierda
 		if (rowf2 == row_previusf2+2 && (colf2 == col_previusf2+2 || colf2 == col_previusf2-2)) {
 			//este if pregunta si la ficha paso por encima de la que sera comida al moverse
