@@ -93,4 +93,23 @@ $(document).ready(function() {
 	}
 	*/
 	//disabled: true 
+	//Funcion que se llama para comer. movida es la ficha2 que se dropea, comida es la ficha1 que come ficha2
+	function comer(movida, comida){
+		//posicion en la que se dropea la ficha 2
+		var rowf2 = parseInt($(movida).attr("data-row"));
+		var colf2 = parseInt($(movida).attr("data-col"));
+		//posicion en la que estaba antes de ser movida
+		var row_previusf2 = parseInt(ui.draggable.parent().attr("id").substr(4, 1));
+		var col_previusf2 = parseInt(ui.draggable.parent().attr("id").substr(10, 1));
+		//posicion en la que esta la ficha que sera comida
+		var rowf1 = parseInt($(comida).attr("data-row"));
+		var colf1 = parseInt($(comida).attr("data-col"));
+		//este if pregunta si se movio dos casillas hacia abajo y dos casillas hacia la derecha o la izquierda
+		if (rowf2 == row_previusf2+2 && (colf2 == col_previusf2+2 || colf2 == col_previusf2-2)) {
+			//este if pregunta si la ficha paso por encima de la que sera comida al moverse
+			if (rowf1 == row_previusf2 + 1 && (colf2 == col_previusf2+1 || colf2 == col_previusf2-1)){
+				comida.toggle("explode");
+			}
+		}
+	}
 });
