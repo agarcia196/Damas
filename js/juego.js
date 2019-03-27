@@ -27,13 +27,31 @@ $(document).ready(function() {
 	for (i = 0; i <8; i++){
 		for(y = 0; y <8; y++){
 			$( "#row-"+i+"-col-"+y ).droppable({
-			//$( "#row-1-col-21" ).droppable({
   				accept: ".ficha2",
   				drop:function(event, ui) {
-				  $( ".ficha1" ).toggle( "explode" );
-				  $( )
-				  comer(".ficha2", ".ficha1");
-  				}
+					var row = parseInt($(this).attr("data-row"));
+					var col = parseInt($(this).attr("data-col"));
+					var row_previus = parseInt(ui.draggable.parent().attr("id").substr(4, 1));
+					var col_previus = parseInt(ui.draggable.parent().attr("id").substr(10, 1));
+					$(ui.draggable).appendTo($(this));
+					if(ui.draggable.hasClass("ficha1")) {
+						if((row - 2) == row_previus) {
+							if (col_previus == col+2 || col_previus == col-2){
+								col_ = (col_previus > col) ? col_previus - 1 : col_previus + 1;
+								div_id = 'row-' + (row - 1) + "-col-" + col_;
+								$("#" + div_id).empty();
+							}
+						}
+					} else {
+						if((row - 2) == row_previus) {
+							if (col_previus == col+2 || col_previus == col-2){
+								col_ = (col_previus > col) ? col_previus - 1 : col_previus + 1;
+								div_id = 'row-' + (row - 1) + "-col-" + col_;
+								$("#" + div_id).empty();
+							}
+						}
+					}
+				},
 
 			});
 		}
@@ -95,7 +113,8 @@ $(document).ready(function() {
 	*/
 	//disabled: true 
 	//Funcion que se llama para comer. movida es la ficha2 que se dropea, comida es la ficha1 que come ficha2
-	function comer(movida, comida){
+	function comer(movida, comida, ui){
+		/*
 		//posicion en la que se dropea la ficha 2
 		var rowf2 = parseInt($(movida).attr("data-row"));
 		var colf2 = parseInt($(movida).attr("data-col"));
@@ -112,11 +131,30 @@ $(document).ready(function() {
 		console.log(rowf1)
 		console.log(colf1)
 		//este if pregunta si se movio dos casillas hacia abajo y dos casillas hacia la derecha o la izquierda
+		*/
+		
+		var parentDiv = movida.parent().prop('id');
+		var row = parseInt(parentDiv.substr(4, 1));
+		var col = parseInt(parentDiv.substr(10, 1));
+		var row_drop = parseInt(movida.attr("data-row"));
+		var col_drop = parseInt(movida.attr("data-col"));
+		//var row = parseInt(parentDiv.prop('id').substr(4, 1));
+		//var col = parseInt(parentDiv.prop('id').substr(10, 1));
+		console.log(movida);
+		console.log(parentDiv);
+		console.log(row);
+		console.log(col);
+		console.log(row_drop);
+		console.log(col_drop);
+		comida.toggle("explode");
+		/*
 		if (rowf2 == row_previusf2+2 && (colf2 == col_previusf2+2 || colf2 == col_previusf2-2)) {
 			//este if pregunta si la ficha paso por encima de la que sera comida al moverse
 			if (rowf1 == row_previusf2 + 1 && (colf2 == col_previusf2+1 || colf2 == col_previusf2-1)){
 				comida.toggle("explode");
 			}
 		}
+		*/
+		//TODO
 	}
 });
