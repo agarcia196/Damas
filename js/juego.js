@@ -1,6 +1,5 @@
 $(document).ready(function() {
-	var turnoBlancas = true;
-	console.log(turnoBlancas)
+		var turnoBlancas = true;
 		for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
 		$("#contenedor").append("<div id=row-" + i + " class='row'></div>")
@@ -38,16 +37,13 @@ $(document).ready(function() {
 					var row_drop = parseInt($(this).attr("data-row"));
 					var col_drop = parseInt($(this).attr("data-col"));
 					if (d.hasClass( "ficha1" )) {
-						console.log(turnoBlancas)
 						if(row_drop  == row - 2) {
 							col_previus = (col > col_drop) ? col_drop + 1 : col_drop - 1;
 							div_id = 'row-' + (row_drop + 1) + "-col-" + col_previus;
-							turnoBlancas = !turnoBlancas;
 							return ($("#"+div_id).children().hasClass("ficha2") && !$(this).children().length > 0 && turnoBlancas);
 						}
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
-								turnoBlancas = !turnoBlancas;
 								return (!$(this).children().length > 0 && turnoBlancas);
 							}
 							return (false);
@@ -58,12 +54,10 @@ $(document).ready(function() {
 						if(row_drop == row + 2) {
 							col_previus = (col < col_drop) ? col_drop - 1 : col_drop + 1;
 							div_id = 'row-' + (row_drop - 1) + "-col-" + col_previus;
-							turnoBlancas = !turnoBlancas;
 							return ($("#"+div_id).children().hasClass("ficha1") && !$(this).children().length > 0 && !turnoBlancas);
 						}
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
-								turnoBlancas = !turnoBlancas;
 								return (!$(this).children().length > 0 && !turnoBlancas);
 							}
 							return (false);
@@ -92,6 +86,8 @@ $(document).ready(function() {
 								}
 							}
 						}
+						turnoBlancas = false;
+						console.log(turnoBlancas);
 					} else {
 						//procedimiento de comer
 						if((row - 2) == row_previus) {
@@ -103,6 +99,8 @@ $(document).ready(function() {
 								}
 							}
 						}
+						turnoBlancas = true;
+						console.log(turnoBlancas);
 					}
 				},
 
