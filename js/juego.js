@@ -1,5 +1,7 @@
 $(document).ready(function() {
 		var turnoBlancas = true;
+		var yaComio = false;
+		var puedeComer = false;
 		for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
 		$("#contenedor").append("<div id=row-" + i + " class='row'></div>")
@@ -44,7 +46,11 @@ $(document).ready(function() {
 						}
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
-								return (!$(this).children().length > 0 && turnoBlancas);
+								if (yaComio) {
+									return (!$(this).children().length > 0 && turnoBlancas && puedeComer);
+								} else {
+									return (!$(this).children().length > 0 && turnoBlancas);
+								}
 							}
 							return (false);
 						}
@@ -58,7 +64,11 @@ $(document).ready(function() {
 						}
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
-								return (!$(this).children().length > 0 && !turnoBlancas);
+								if (yaComio) {
+									return (!$(this).children().length > 0 && !turnoBlancas && puedeComer);
+								} else {
+									return (!$(this).children().length > 0 && !turnoBlancas);
+								}
 							}
 							return (false);
 						}
@@ -76,6 +86,7 @@ $(document).ready(function() {
 					$(ui.draggable).appendTo($(this));
 					//Revisa el tipo de ficha
 					//El true no se hace, solo se ejecuta el else por ahora
+					//yaComio = false;
 					if(ui.draggable.hasClass("ficha1")) {
 						if((row + 2) == row_previus) {
 							if (col_previus == col+2 || col_previus == col-2){
@@ -83,11 +94,11 @@ $(document).ready(function() {
 								div_id = 'row-' + (row + 1) + "-col-" + colMuere;
 								if ($("#"+div_id).children().hasClass("ficha2")){
 									$("#" + div_id).empty();
+									yaComio = true;
 								}
 							}
 						}
 						turnoBlancas = false;
-						console.log(turnoBlancas);
 					} else {
 						//procedimiento de comer
 						if((row - 2) == row_previus) {
@@ -96,11 +107,96 @@ $(document).ready(function() {
 								div_id = 'row-' + (row - 1) + "-col-" + colMuere;
 								if ($("#"+div_id).children().hasClass("ficha1")){
 									$("#" + div_id).empty();
-								}
+									yaComio = true;
+									var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
+									if (row != 7){
+										espacio1_id = 'row-' + (row + 1) + "-col-" + (col-1);
+										espacio2_id = 'row-' + (row + 1) + "-col-" + (col+1);
+										if (row != 6){
+											espacio4_id = 'row-' + (row + 2) + "-col-" + (col);
+											if (col >=2 ){
+												espacio3_id = 'row-' + (row + 2) + "-col-" + (col-2);
+											}
+											if (col <= 6){
+												espacio5_id = 'row-' + (row + 2) + "-col-" + (col+2);
+											}
+										}		
+									}	
+									if (espacio3_id != null && espacio4_id != null && espacio5_id != null ){
+										if($("#"+espacio1_id).children().length == 0 && $("#"+espacio2_id).children().length == 0 ){
+											puedeComer = false;
+											//yaComio = false
+											console.log(puedeComer);
+										} else {
+											//ESTA MALO SOLO ESTA REVISANDO SI HAY NEGRAS EN ALGUNO DE LOS DOS
+											if ($("#"+espacio1_id).children().hasClass("ficha2")){
+												if ($("#"+espacio2_id).children().hasClass("ficha2")){
+													puedeComer = false
+													//yaComio = false
+												}
+												if ($("#"+espacio2_id).children().hasClass("ficha1")){
+													//Check 4 and 5 empty
+													if ($("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0 ){
+														puedeComer = true;
+														
+														console.log("PUEDE COMER 4 5");
+														console.log(yaComio)
+													}
+													
+												}	
+											}
+											if ($("#"+espacio2_id).children().hasClass("ficha2")){
+												if ($("#"+espacio1_id).children().hasClass("ficha2")){
+													puedeComer = false
+													//yaComio = false
+												}
+												if ($("#"+espacio1_sid).children().hasClass("ficha1")){
+													//Check 3 and 4 empty
+													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
+														puedeComer = true;
+														console.log("PUEDE COMER 3 4");
+														console.log(yaComio)
+													}
+												}
+											}
+											if ($("#"+espacio1_id).children().hasClass("ficha1")){
+												if ($("#"+espacio2_id).children().hasClass("ficha1")){
+													//check 3, 4 and 5 empty
+													if ($("#"+espacio3_id).children().length == 0 || $("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0){
+														puedeComer = true;
+														console.log("PUEDE COMER 345");
+														console.log(yaComio)
+													}
+												}
+												//chech 3,4
+												if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
+													puedeComer = true;
+													console.log("PUEDE COMER 3 4");
+													console.log(yaComio)
+												}
+											}
+											if ($("#"+espacio2_id).children().hasClass("ficha1")){
+												//check 4,5
+												if ($("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0 ){
+													puedeComer = true;
+													console.log("PUEDE COMER 4 5");
+													console.log(yaComio)
+												}
+											}
+											
+
+										}
+									} else {
+										puedeComer = false;
+										yaComio = false
+									}
+								}	
 							}
 						}
-						turnoBlancas = true;
-						console.log(turnoBlancas);
+						if (!puedeComer){
+							turnoBlancas = true;
+							yaComio = false
+						}
 					}
 				},
 
