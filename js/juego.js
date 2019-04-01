@@ -3,9 +3,7 @@
 		var puedeComer = false;
 		var idt;
 $(document).ready(function() {
-
 		createTable();	
-
 
 });
 function createTable(){
@@ -751,8 +749,7 @@ function loadgame(fid){
 													console.log("PUEDE COMER 4 5");
 													console.log(yaComio)
 												}
-											}
-											
+											}										
 
 										}
 									} else {
@@ -770,8 +767,6 @@ function loadgame(fid){
 					}
 					//---FIN DROP
 				},
-
 			});
-		}
+	}}
 	}
-		}
