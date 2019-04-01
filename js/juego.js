@@ -172,8 +172,7 @@ function loadgame(fid){
 						//return ((row_drop - 1) == row && (col_drop -1 == col || col_drop + 1 == col) && (! $(this).children().length > 0 ));
 					}  
 		    },
-  				drop:function(event, ui) {
-					
+  				drop:function mover(event, ui) {
 					//Obtiene la posición actual
 					var row = parseInt($(this).attr("data-row"));
 					var col = parseInt($(this).attr("data-col"));
@@ -272,12 +271,17 @@ function loadgame(fid){
 										puedeComer = false;
 										yaComio = false
 									}
-								}	
+								}
+								
+								
 							}
-						}
+						}						
 						if (!puedeComer){
 							turnoBlancas = false;
 							yaComio = false
+							if(idt==0){
+								EnviarMovimiento(row_previus+";"+col_previus+";"+row+";"+col+";"+1);// Seder turno a negro 1
+							}							
 						}
 						//-------------------------------------------------------------------------------------------------------------------
 					} 
@@ -573,6 +577,9 @@ function loadgame(fid){
 						if (!puedeComer){
 							turnoBlancas = true;
 							yaComio = false
+							if(idt==1){
+							EnviarMovimiento(row_previus+";"+col_previus+";"+row+";"+col+";"+0);// Seder turno a negro 1
+						   }
 						}
 					}
 					//----DAMA 2

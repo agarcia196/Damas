@@ -37,8 +37,13 @@ ws.onopen = function() {
 ws.onmessage = function (evt) {
 
     var msj=evt.data.split(";");
-    console.log(msj);
     switch (msj[0]) {
+      case "mov":
+      turnoBlancas= (msj[5] == 1) ? false : true;
+      col_id = 'row-' + msj[1] + '-col-' + msj[2];
+     var ui= $("#"+col_id).children();
+     mover(msj[1],msj[2], ui);
+    break;
   case "nf":
     console.log(msj[1]);
     break;
@@ -112,6 +117,10 @@ function Chat(mensaje,img){
                     '<p class="">'+mensaje[1]+'</p> <span class="date sub-text">'+mensaje[2]+' </span>'+
                 '</div>'+
             '</li>');
+}
+function EnviarMovimiento(msj){
+    ws.send("mov;"+msj);
+    return true;
 }
 function Enviar2(){
     var msj=$("#Message").val();
