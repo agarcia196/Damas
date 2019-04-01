@@ -42,7 +42,7 @@ ws.onmessage = function (evt) {
       turnoBlancas= (msj[5] == 1) ? false : true;
       col_id = 'row-' + msj[1] + '-col-' + msj[2];
      var ui= $("#"+col_id).children();
-     mover(msj[1],msj[2], ui);
+     mover(msj[1],msj[2],msj[3],msj[4],ui);
     break;
   case "nf":
     console.log(msj[1]);
