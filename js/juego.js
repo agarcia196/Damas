@@ -1,7 +1,8 @@
-$(document).ready(function() {
 		var turnoBlancas = true;
 		var yaComio = false;
 		var puedeComer = false;
+$(document).ready(function() {
+
 		createTable();	
 function createTable(){
 	for(i = 0; i< 8; i++) {
@@ -42,9 +43,11 @@ function loadgame(fid){
 
 	if(fid==0){
 	$(".ficha1").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
+	$(".ficha2").draggable({ revert:'invalid',disabled: true });
 	}
-	if(fid==!){
+	if(fid==1){
 	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
+	$(".ficha1").draggable({ revert:'invalid',disabled: true });
 	}
 	var grid = $( ".ficha2" ).draggable( "option", "containment" );
 	for (i = 0; i <8; i++){
