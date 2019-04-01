@@ -3,10 +3,11 @@
 		var puedeComer = false;
 		var posicionComedor;
 		var posicionDrop;
+		var idt;
 $(document).ready(function() {
-
 		createTable();	
-		loadgame(1);
+
+});
 function createTable(){
 	for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
@@ -22,16 +23,13 @@ function createTable(){
 		}
 	}
 }
-
-
-});
 function loadgame(fid){
+	idt=fid;
 			for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
 		for(j = 0; j< 8; j++) {
 			if(j % 2 == x) {
-				col_id = 'row-' + i + '-col-' + j;
-				
+				col_id = 'row-' + i + '-col-' + j;				
 				if( i <= 2 ) {
 					ficha_id = 'f1-' + 'row-' + i + '-col-' + j;
 					$("#"+ col_id).append("<div class='ficha2' id="+ ficha_id +"></div>");
@@ -44,17 +42,14 @@ function loadgame(fid){
 		}
 	}
 
-	/*if(fid==0){
+	if(fid==0){
 	$(".ficha1").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
 	$(".ficha2").draggable({ revert:'invalid',disabled: true });
 	}
 	if(fid==1){
 	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
 	$(".ficha1").draggable({ revert:'invalid',disabled: true });
-	}*/
-	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
-	$(".ficha1").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
-	var grid = $( ".ficha2" ).draggable( "option", "containment" );
+	}
 	for (i = 0; i <8; i++){
 		for(y = 0; y <8; y++){
 			$( "#row-"+i+"-col-"+y ).droppable({
@@ -218,8 +213,7 @@ function loadgame(fid){
 						//return ((row_drop - 1) == row && (col_drop -1 == col || col_drop + 1 == col) && (! $(this).children().length > 0 ));
 					}  
 		    },
-  				drop:function(event, ui) {
-					
+  				drop:function mover(event, ui) {
 					//Obtiene la posición actual
 					var row = parseInt($(this).attr("data-row"));
 					var col = parseInt($(this).attr("data-col"));
@@ -318,16 +312,22 @@ function loadgame(fid){
 										puedeComer = false;
 										yaComio = false
 									}
-								}	
+								}
+								
+								
 							}
-						}
+						}						
 						if (!puedeComer){
 							turnoBlancas = false;
 							yaComio = false
+              							if(idt==0){
+								EnviarMovimiento(row_previus+";"+col_previus+";"+row+";"+col+";"+1);// Seder turno a negro 1
+							}		
 						} else {
 							//guarda la posicion en la que quedo despues de comer
 							posicionComedor = 'row-' + (row) + "-col-" + (col);
 							console.log(posicionComedor);
+					
 						}
 						//-------------------------------------------------------------------------------------------------------------------
 					} 
@@ -703,6 +703,9 @@ function loadgame(fid){
 						if (!puedeComer){
 							turnoBlancas = true;
 							yaComio = false
+              		if(idt==1){
+							EnviarMovimiento(row_previus+";"+col_previus+";"+row+";"+col+";"+0);// Seder turno a negro 1
+						   }
 						} else {
 							//guarda la posicion en la que quedo despues de comer
 							posicionComedor = 'row-' + (row) + "-col-" + (col);
@@ -894,15 +897,14 @@ function loadgame(fid){
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha1")||$("#"+espacio2_id).children().hasClass("ficha1dama")){
 												//check 4,5
+
 												if (espacio5_id != null) {
 													if ($("#"+espacio5_id).children().length == 0){
 														puedeComer = true
 													}
 												}	
 											}
-											
-
-										}
+														}
 									} else {
 										puedeComer = false;
 										yaComio = false
@@ -922,10 +924,10 @@ function loadgame(fid){
 					}
 					//---FIN DROP
 				},
-
 			});
-		}
+	}}
 	}
+
 	
 	function obligaComer(tipoFicha){
 		var casilla

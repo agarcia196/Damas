@@ -1,5 +1,6 @@
 var ws ;
-
+var img1="http://placekitten.com/50/50";
+var img2="http://placekitten.com/40/40";
 function StartGame(){
     Conectar();
 }
@@ -14,14 +15,21 @@ ws.onopen = function() {
     var nick= $("#Nickname").val();
    $("#game").html('<div class="row">'+
               '<div class="col-lg-12">'+
-              '<h4>Status conexión <i id="conex"style="vertical-align: middle;margin-bottom: 4px; color:green;" class="material-icons">check_circle</i></h4>'+
+              '<h4>Estado conexión <i id="conex"style="vertical-align: middle;margin-bottom: 4px; color:green;" class="material-icons">check_circle</i></h4>'+
             '</div> </div>'+
-        '<div class="row">'+
+           '<div class="row">'+
                         '<div class="col-lg-12">'+
                          '<div class="form-group">'+
                         '<label for="Nickname">Nickname</label>'+
                         '<h4 id="nick">'+nick+'</h4>'+
-                      '</div>');
+                      '</div>'+'</div>'+'</div>'+
+                      '<div  id="espera" class="row">'+
+                      '<div class="col-lg-12">'+
+                      '<div class="form-group">'+
+                        '<label for="Nickname">Esperando por jugador&nbsp;&nbsp; </label>'+
+                                              '<div class="spinner-border  text-primary spinner-border-sm" role="status">'+
+                      '<span class="sr-only">Loading...</span></div>'+
+                      '</div>'+'</div>'+'</div>');
 };
 
 
@@ -30,16 +38,30 @@ ws.onmessage = function (evt) {
 
     var msj=evt.data.split(";");
     switch (msj[0]) {
+      case "mov":
+      turnoBlancas= (msj[5] == 1) ? false : true;
+      col_id = 'row-' + msj[1] + '-col-' + msj[2];
+     var ui= $("#"+col_id).children();
+     mover(msj[1],msj[2], ui);
+    break;
   case "nf":
     console.log(msj[1]);
     break;
     case "fid":
+    $("#espera").remove();
     loadgame(msj[1]);
+    $("#tBox").append('<div id="spinnerbox"class="spinner-grow  spinner-grow-sm text-success" role="status">'+
+  '<span class="sr-only">Loading...</span>'+
+  '</div>');
+    break;
+     case "User":
+    UserConnected(msj[1]);
     break;
   case "chat":
   msj[0]=msj[1];
     msj[1]=msj[2];
-       Chat(msj);
+    msj[2]=msj[3];
+       Chat(msj,img1);
     break;
   case "success":
      Notif(msj[0],msj[1]);
@@ -60,7 +82,7 @@ ws.onclose = function() {
       
        $("#game").html(  '<div class="row">'+
               '<div class="col-lg-12">'+
-              '<h4>Status conexión <i id="conex" style="vertical-align: middle;margin-bottom: 4px;color:red" class="material-icons">remove_circle</i></h4>'+
+              '<h4>Estado conexión <i id="conex" style="vertical-align: middle;margin-bottom: 4px;color:red" class="material-icons">remove_circle</i></h4>'+
             '</div> </div>'+
                     '<div class="row">'+
                         '<div class="col-lg-12">'+
@@ -72,31 +94,44 @@ ws.onclose = function() {
                     '<div class="col-lg-12"> <br/>'+             
                     '<button class="btn btn-primary btn-block" onclick="Conectar()">Iniciar Juego</button>'+
                    '</div></div>');
+       Notif("error","Server disconnected");
+       $("#contenedor").html("");
+       $("#Info").remove();
+       $("#spinnerbox").remove();
+       createTable();
 }; 
 
 //La propiedad del controlador de eventos de WebSocketla interfaz onerrores una función que se llama cuando se produce un error en el WebSocket.
 ws.onerror = function(err) {
-    alert("Error: " + err);
+    Notif("error","Server offline: "+err);
 };
 }
-function Chat(mensaje){
-    console.log(mensaje);
+function Chat(mensaje,img){
+
      $("#ChatBox").append('<li>'+
                 '<div class="commenterImage">'+
-                  '<img src="http://placekitten.com/50/50" />'+
+                  '<img src="'+img+'"/>'+
                 '</div>'+
                 '<div class="commentText">'+
                     '<strong>'+mensaje[0]+'</strong>'+
-                    '<p class="">'+mensaje[1]+'</p> <span class="date sub-text">'+Date()+' </span>'+
+                    '<p class="">'+mensaje[1]+'</p> <span class="date sub-text">'+mensaje[2]+' </span>'+
                 '</div>'+
             '</li>');
+}
+function EnviarMovimiento(msj){
+    ws.send("mov;"+msj);
+    return true;
+}
+function Enviar2(){
+    var msj=$("#Message").val();
+    ws.send(msj);
 }
 function Enviar(){
     var msj=$("#Message").val();
     var n=$("#nick").text();
-    mensaje=n+';'+msj;
+    mensaje=n+';'+msj+';'+Date();
     ws.send("chat;"+mensaje);
-     Chat(mensaje.split(';'));
+     Chat(mensaje.split(';'),img2);
     $("#Message").val("");
 }
 function Notif(t,mensaje){
@@ -122,6 +157,22 @@ switch (t) {
   default:
     console.log('default');
     }
+}
+function UserConnected(user){
+   $("#PanelConfig").append(  '<div id="Info" class="card" style="width: 18rem;">'+
+          '<div class="card-header" role="group">'+
+            '<h6><i class="material-icons" style="vertical-align: middle;margin-bottom: 4px;">videogame_asset</i> Datos del contrincante</h6>'+
+          '</div>'+
+           '<div  class="card-body">'+
+           '<div class="row">'+
+                        '<div class="col-lg-12">'+
+                         '<div class="form-group">'+
+                         '<i class="material-icons" style="vertical-align: middle;margin-bottom: 4px; color:green;">account_circle</i>'+
+                        '<label for="Nickname">ID Sesión</label>'+
+                        '<h4 id="nick">'+user+'</h4>'+
+                      '</div>'+'</div>'+'</div>'+
+           '</div>'+
+          '</div>');
 }
 function Salir(){
     alert("Salir!");
