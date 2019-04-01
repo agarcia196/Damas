@@ -1,9 +1,13 @@
 		var turnoBlancas = true;
 		var yaComio = false;
 		var puedeComer = false;
+		var idt;
 $(document).ready(function() {
 
 		createTable();	
+
+
+});
 function createTable(){
 	for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
@@ -19,16 +23,13 @@ function createTable(){
 		}
 	}
 }
-
-
-});
 function loadgame(fid){
+	idt=fid;
 			for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
 		for(j = 0; j< 8; j++) {
 			if(j % 2 == x) {
-				col_id = 'row-' + i + '-col-' + j;
-				
+				col_id = 'row-' + i + '-col-' + j;				
 				if( i <= 2 ) {
 					ficha_id = 'f1-' + 'row-' + i + '-col-' + j;
 					$("#"+ col_id).append("<div class='ficha2' id="+ ficha_id +"></div>");

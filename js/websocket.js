@@ -39,6 +39,7 @@ ws.onmessage = function (evt) {
   case "chat":
   msj[0]=msj[1];
     msj[1]=msj[2];
+    msj[2]=msj[3];
        Chat(msj);
     break;
   case "success":
@@ -72,11 +73,14 @@ ws.onclose = function() {
                     '<div class="col-lg-12"> <br/>'+             
                     '<button class="btn btn-primary btn-block" onclick="Conectar()">Iniciar Juego</button>'+
                    '</div></div>');
+       Notif("error","Server disconnected");
+       $("#contenedor").html("");
+       createTable();
 }; 
 
 //La propiedad del controlador de eventos de WebSocketla interfaz onerrores una función que se llama cuando se produce un error en el WebSocket.
 ws.onerror = function(err) {
-    alert("Error: " + err);
+    Notif("error","Server offline: "+err);
 };
 }
 function Chat(mensaje){
@@ -87,14 +91,14 @@ function Chat(mensaje){
                 '</div>'+
                 '<div class="commentText">'+
                     '<strong>'+mensaje[0]+'</strong>'+
-                    '<p class="">'+mensaje[1]+'</p> <span class="date sub-text">'+Date()+' </span>'+
+                    '<p class="">'+mensaje[1]+'</p> <span class="date sub-text">'+mensaje[2]+' </span>'+
                 '</div>'+
             '</li>');
 }
 function Enviar(){
     var msj=$("#Message").val();
     var n=$("#nick").text();
-    mensaje=n+';'+msj;
+    mensaje=n+';'+msj+';'+Date();
     ws.send("chat;"+mensaje);
      Chat(mensaje.split(';'));
     $("#Message").val("");
