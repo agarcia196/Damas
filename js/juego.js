@@ -53,7 +53,7 @@ $(document).ready(function() {
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && turnoBlancas);
 								}
@@ -72,7 +72,7 @@ $(document).ready(function() {
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && !turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && !turnoBlancas);
 								}
@@ -96,7 +96,7 @@ $(document).ready(function() {
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && turnoBlancas);
 								}
@@ -106,7 +106,7 @@ $(document).ready(function() {
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && turnoBlancas);
 								}
@@ -129,7 +129,7 @@ $(document).ready(function() {
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && !turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && !turnoBlancas);
 								}
@@ -139,7 +139,7 @@ $(document).ready(function() {
 						if(row_drop == row + 1) {
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && !turnoBlancas && puedeComer);
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer);
 								} else {
 									return (!$(this).children().length > 0 && !turnoBlancas);
 								}
