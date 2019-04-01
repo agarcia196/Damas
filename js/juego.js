@@ -30,6 +30,9 @@ $(document).ready(function() {
 	for (i = 0; i <8; i++){
 		for(y = 0; y <8; y++){
 			$( "#row-"+i+"-col-"+y ).droppable({
+
+				//-----------------------------------------EL ACCEPT SE HACE CADA VEZ QUE SE MUEVE UN PIXEL---------------------------------
+
   				accept: function(d) {
 					var parentDiv = d.parent().prop('id');
 					//posicion en la que empieza
@@ -38,6 +41,9 @@ $(document).ready(function() {
 					//posicion en la que termina
 					var row_drop = parseInt($(this).attr("data-row"));
 					var col_drop = parseInt($(this).attr("data-col"));
+
+					//-------------------------------------------------- FICHA BLANCA ------------------------------------------------------
+					
 					if (d.hasClass( "ficha1" )) {
 						if(row_drop  == row - 2) {
 							col_previus = (col > col_drop) ? col_drop + 1 : col_drop - 1;
@@ -74,7 +80,6 @@ $(document).ready(function() {
 							return (false);
 						}
 						return (false);
-						//return ((row_drop + 1) == row && (col_drop -1 == col || col_drop + 1 == col) && (! $(this).children().length > 0 ));
 					}
 					if (d.hasClass( "ficha1dama")) {
 						//console.log("fila "+row+" Columna "+col+" Destino fila "+row_drop+" Destino columna"+col_drop);
@@ -146,6 +151,7 @@ $(document).ready(function() {
 					}  
 		    },
   				drop:function(event, ui) {
+					
 					//Obtiene la posición actual
 					var row = parseInt($(this).attr("data-row"));
 					var col = parseInt($(this).attr("data-col"));
@@ -171,7 +177,7 @@ $(document).ready(function() {
 									$("#" + div_id).empty();
 									yaComio = true;
 									
-							var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
+									var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
 									if (row != 0){
 										espacio1_id = 'row-' + (row - 1) + "-col-" + (col-1);
 										espacio2_id = 'row-' + (row - 1) + "-col-" + (col+1);
@@ -185,17 +191,14 @@ $(document).ready(function() {
 											}
 										}		
 									}	
-									//------------------------------------------------------------------------------------------------------
+
 									if (espacio3_id != null && espacio4_id != null && espacio5_id != null ){
 										if($("#"+espacio1_id).children().length == 0 && $("#"+espacio2_id).children().length == 0 ){
 											puedeComer = false;
-											//yaComio = false
-											console.log(puedeComer);
 										} else {
 											if ($("#"+espacio1_id).children().hasClass("ficha1")){
 												if ($("#"+espacio2_id).children().hasClass("ficha1")){
 													puedeComer = false
-													//yaComio = false
 												}
 												if ($("#"+espacio2_id).children().hasClass("ficha2")){
 													//Check 4 and 5 empty
@@ -211,9 +214,8 @@ $(document).ready(function() {
 											if ($("#"+espacio2_id).children().hasClass("ficha1")){
 												if ($("#"+espacio1_id).children().hasClass("ficha1")){
 													puedeComer = false
-													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha2")){
+												if ($("#"+espacio1_id).children().hasClass("ficha2")){
 													//Check 3 and 4 empty
 													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
@@ -227,15 +229,11 @@ $(document).ready(function() {
 													//check 3, 4 and 5 empty
 													if ($("#"+espacio3_id).children().length == 0 || $("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0){
 														puedeComer = true;
-														console.log("PUEDE COMER 345");
-														console.log(yaComio)
 													}
 												}
 												//chech 3,4
 												if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 													puedeComer = true;
-													console.log("PUEDE COMER 3 4");
-													console.log(yaComio)
 												}
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha2")){
@@ -270,7 +268,11 @@ $(document).ready(function() {
 									$("#" + div_id).empty();
 									yaComio = true;
 									
-							var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
+									var espacio1_id = null;
+									var espacio2_id = null;
+									var espacio3_id = null;
+									var espacio4_id = null;
+									var espacio5_id = null;
 									if (row != 0){
 										espacio1_id = 'row-' + (row - 1) + "-col-" + (col-1);
 										espacio2_id = 'row-' + (row - 1) + "-col-" + (col+1);
@@ -311,7 +313,7 @@ $(document).ready(function() {
 													puedeComer = false
 													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha2")||$("#"+espacio1_sid).children().hasClass("ficha2dama")){
+												if ($("#"+espacio1_id).children().hasClass("ficha2")||$("#"+espacio1_id).children().hasClass("ficha2dama")){
 													//Check 3 and 4 empty
 													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
@@ -360,7 +362,11 @@ $(document).ready(function() {
 								if ($("#"+div_id).children().hasClass("ficha2")||$("#"+div_id).children().hasClass("ficha2dama")){
 									$("#" + div_id).empty();
 									yaComio = true;
-									var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
+									var espacio1_id = null;
+									var espacio2_id = null;
+									var espacio3_id = null;
+									var espacio4_id = null;
+									var espacio5_id = null;
 									if (row != 7){
 										espacio1_id = 'row-' + (row + 1) + "-col-" + (col-1);
 										espacio2_id = 'row-' + (row + 1) + "-col-" + (col+1);
@@ -402,7 +408,7 @@ $(document).ready(function() {
 													puedeComer = false
 													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha2")||$("#"+espacio1_sid).children().hasClass("ficha2dama")){
+												if ($("#"+espacio1_id).children().hasClass("ficha2")||$("#"+espacio1_id).children().hasClass("ficha2dama")){
 													//Check 3 and 4 empty
 													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
@@ -440,7 +446,6 @@ $(document).ready(function() {
 										}
 									} else {
 										puedeComer = false;
-										yaComio = false
 									}
 								}	
 							}
@@ -466,6 +471,7 @@ $(document).ready(function() {
 								if ($("#"+div_id).children().hasClass("ficha1")){
 									$("#" + div_id).empty();
 									yaComio = true;
+
 									var espacio1_id, espacio2_id, espacio3_id, espacio4_id, espacio5_id;
 									if (row != 7){
 										espacio1_id = 'row-' + (row + 1) + "-col-" + (col-1);
@@ -483,38 +489,36 @@ $(document).ready(function() {
 									if (espacio3_id != null && espacio4_id != null && espacio5_id != null ){
 										if($("#"+espacio1_id).children().length == 0 && $("#"+espacio2_id).children().length == 0 ){
 											puedeComer = false;
-											//yaComio = false
-											console.log(puedeComer);
 										} else {
-											//ESTA MALO SOLO ESTA REVISANDO SI HAY NEGRAS EN ALGUNO DE LOS DOS
 											if ($("#"+espacio1_id).children().hasClass("ficha2")){
 												if ($("#"+espacio2_id).children().hasClass("ficha2")){
 													puedeComer = false
-													//yaComio = false
 												}
 												if ($("#"+espacio2_id).children().hasClass("ficha1")){
 													//Check 4 and 5 empty
 													if ($("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0 ){
 														puedeComer = true;
-														
-														console.log("PUEDE COMER 4 5");
-														console.log(yaComio)
 													}
 													
-												}	
+												}
+												if ($("#"+espacio2_id).children().length == 0){
+													puedeComer = false
+												}
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha2")){
 												if ($("#"+espacio1_id).children().hasClass("ficha2")){
 													puedeComer = false
-													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha1")){
+												if ($("#"+espacio1_id).children().hasClass("ficha1")){
 													//Check 3 and 4 empty
-													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
+													if ($("#"+espacio3_id).children().length == 0 || $("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
-														console.log("PUEDE COMER 3 4");
-														console.log(yaComio)
+													} else { 
+														puedeComer = false;
 													}
+												}
+												if ($("#"+espacio1_id).children().length == 0){
+													puedeComer = false
 												}
 											}
 											if ($("#"+espacio1_id).children().hasClass("ficha1")){
@@ -522,23 +526,17 @@ $(document).ready(function() {
 													//check 3, 4 and 5 empty
 													if ($("#"+espacio3_id).children().length == 0 || $("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0){
 														puedeComer = true;
-														console.log("PUEDE COMER 345");
-														console.log(yaComio)
 													}
 												}
 												//chech 3,4
-												if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
+												if ($("#"+espacio3_id).children().length == 0 || $("#"+espacio4_id).children().length == 0 ){
 													puedeComer = true;
-													console.log("PUEDE COMER 3 4");
-													console.log(yaComio)
 												}
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha1")){
 												//check 4,5
 												if ($("#"+espacio4_id).children().length == 0 ||$("#"+espacio5_id).children().length == 0 ){
 													puedeComer = true;
-													console.log("PUEDE COMER 4 5");
-													console.log(yaComio)
 												}
 											}
 											
@@ -546,7 +544,6 @@ $(document).ready(function() {
 										}
 									} else {
 										puedeComer = false;
-										yaComio = false
 									}
 								}	
 							}
@@ -607,7 +604,7 @@ $(document).ready(function() {
 													puedeComer = false
 													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha1")||$("#"+espacio1_sid).children().hasClass("ficha1dama")){
+												if ($("#"+espacio1_id).children().hasClass("ficha1")||$("#"+espacio1_id).children().hasClass("ficha1dama")){
 													//Check 3 and 4 empty
 													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
@@ -698,7 +695,7 @@ $(document).ready(function() {
 													puedeComer = false
 													//yaComio = false
 												}
-												if ($("#"+espacio1_sid).children().hasClass("ficha1")||$("#"+espacio1_sid).children().hasClass("ficha1dama")){
+												if ($("#"+espacio1_id).children().hasClass("ficha1")||$("#"+espacio1_id).children().hasClass("ficha1dama")){
 													//Check 3 and 4 empty
 													if ($("#"+espacio3_id).children().length == 0 ||$("#"+espacio4_id).children().length == 0 ){
 														puedeComer = true;
