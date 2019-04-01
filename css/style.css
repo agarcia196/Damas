@@ -26,6 +26,19 @@
 	-moz-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
 }
+.ficha1dama {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-image: url("imagenes/corona_black.png");
+  background-color: white;  
+  margin-top: 10px;
+  margin-left: 6px;
+  border-radius: 25px;
+  -webkit-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+}
 .ficha2 {
 	position: absolute;
 	width: 35px;
@@ -37,6 +50,19 @@
   -webkit-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
 	box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+}
+.ficha2dama {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-image: url("imagenes/corona_white.png");
+  background-color: black;
+  margin-top: 10px;
+  margin-left: 6px;
+  border-radius: 25px;
+  -webkit-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 4px 16px 0px rgba(0,0,0,0.75);
 }
 
 .detailBox {
