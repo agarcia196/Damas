@@ -2,13 +2,32 @@ $(document).ready(function() {
 		var turnoBlancas = true;
 		var yaComio = false;
 		var puedeComer = false;
-		for(i = 0; i< 8; i++) {
+		createTable();	
+function createTable(){
+	for(i = 0; i< 8; i++) {
 		x = (i % 2 == 0) ? 1 : 0;
-		$("#contenedor").append("<div id=row-" + i + " class='row'></div>")
+		$("#contenedor").append("<div id=row-" + i + " class='row'></div>");
 		for(j = 0; j< 8; j++) {
 			if(j % 2 == x) {
 				col_id = 'row-' + i + '-col-' + j;
 				$("#row-" + i).append("<div class='col-white' data-row= "+i+" data-col="+j+" id=" + col_id + "></div>");
+			}
+			else{
+				$("#row-" + i).append("<div class='col-black'></div>");
+			}
+		}
+	}
+}
+
+
+});
+function loadgame(fid){
+			for(i = 0; i< 8; i++) {
+		x = (i % 2 == 0) ? 1 : 0;
+		for(j = 0; j< 8; j++) {
+			if(j % 2 == x) {
+				col_id = 'row-' + i + '-col-' + j;
+				
 				if( i <= 2 ) {
 					ficha_id = 'f1-' + 'row-' + i + '-col-' + j;
 					$("#"+ col_id).append("<div class='ficha2' id="+ ficha_id +"></div>");
@@ -18,14 +37,15 @@ $(document).ready(function() {
 					$("#"+ col_id).append("<div class='ficha1' id="+ ficha_id +"></div>");
 				}
 			}
-			else{
-				$("#row-" + i).append("<div class='col-black'></div>");
-			}
-
 		}
 	}
-	$(".ficha1").draggable({ revert: 'invalid' });
+
+	if(fid==0){
+	$(".ficha1").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
+	}
+	if(fid==!){
 	$(".ficha2").draggable({ revert:'invalid',opacity: 0.5,revertDuration: 1000,containment: $("#colcenter")});
+	}
 	var grid = $( ".ficha2" ).draggable( "option", "containment" );
 	for (i = 0; i <8; i++){
 		for(y = 0; y <8; y++){
@@ -750,5 +770,4 @@ $(document).ready(function() {
 			});
 		}
 	}
-
-});
+		}
