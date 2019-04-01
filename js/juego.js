@@ -86,9 +86,9 @@ function loadgame(fid){
 						if(row_drop == row - 1){
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
-									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col));
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col)&& !obligaComer(1));
 								} else {
-									return (!$(this).children().length > 0 && turnoBlancas);
+									return (!$(this).children().length > 0 && turnoBlancas && !obligaComer(1));
 								}
 							}
 							return (false);
@@ -110,9 +110,9 @@ function loadgame(fid){
 							if (col_drop == col+1 || col_drop == col-1){
 								if (yaComio) {
 									posicionDrop = 'row-' + (row) + "-col-" + (col);
-									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col));
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) && !obligaComer(2));
 								} else {
-									return (!$(this).children().length > 0 && !turnoBlancas);
+									return (!$(this).children().length > 0 && !turnoBlancas && !obligaComer(2) );
 								}
 							}
 							return (false);
@@ -146,9 +146,9 @@ function loadgame(fid){
 									
 									console.log(posicionComedor);
 									posicionDrop = 'row-' + (row) + "-col-" + (col);
-									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col));
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) && !obligaComer(2));
 								} else {
-									return (!$(this).children().length > 0 && turnoBlancas);
+									return (!$(this).children().length > 0 && turnoBlancas && !obligaComer(2));
 								}
 							}
 							return (false);
@@ -159,9 +159,9 @@ function loadgame(fid){
 									console.log('row-' + (row) + "-col-" + (col));
 									console.log(posicionComedor);
 									posicionDrop = 'row-' + (row) + "-col-" + (col);
-									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) );
+									return (!$(this).children().length > 0 && turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) && !obligaComer(2));
 								} else {
-									return (!$(this).children().length > 0 && turnoBlancas);
+									return (!$(this).children().length > 0 && turnoBlancas && !obligaComer(2));
 								}
 							}
 							return (false);
@@ -194,9 +194,9 @@ function loadgame(fid){
 									console.log('row-' + (row) + "-col-" + (col));
 									console.log(posicionComedor);
 									posicionDrop = 'row-' + (row) + "-col-" + (col);
-									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) );
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) && !obligaComer(1));
 								} else {
-									return (!$(this).children().length > 0 && !turnoBlancas);
+									return (!$(this).children().length > 0 && !turnoBlancas && !obligaComer(1));
 								}
 							}
 							return (false);
@@ -207,9 +207,9 @@ function loadgame(fid){
 									console.log('row-' + (row) + "-col-" + (col));
 									console.log(posicionComedor);
 									posicionDrop = 'row-' + (row) + "-col-" + (col);
-									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col) );
+									return (!$(this).children().length > 0 && !turnoBlancas && !puedeComer && posicionComedor == 'row-' + (row) + "-col-" + (col)  && !obligaComer(1));
 								} else {
-									return (!$(this).children().length > 0 && !turnoBlancas);
+									return (!$(this).children().length > 0 && !turnoBlancas && !obligaComer(1));
 								}
 							}
 							return (false);
@@ -635,11 +635,7 @@ function loadgame(fid){
 												}
 												if ($("#"+espacio2_id).children().hasClass("ficha1")){
 													//Check 4 and 5 empty
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
-													}
+
 													if (espacio5_id != null) {
 														if ($("#"+espacio5_id).children().length == 0){
 															puedeComer = true
@@ -661,11 +657,6 @@ function loadgame(fid){
 															puedeComer = true
 														}
 													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
-													}	
 												}
 												if ($("#"+espacio1_id).children().length == 0){
 													puedeComer = false
@@ -676,11 +667,6 @@ function loadgame(fid){
 													//check 3, 4 and 5 empty
 													if (espacio3_id != null) {
 														if ($("#"+espacio3_id).children().length == 0){
-															puedeComer = true
-														}
-													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
 															puedeComer = true
 														}
 													}
@@ -696,19 +682,9 @@ function loadgame(fid){
 														puedeComer = true
 													}
 												}
-												if (espacio4_id != null) {
-													if ($("#"+espacio4_id).children().length == 0){
-														puedeComer = true
-													}
-												}	
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha1")){
 												//check 4,5
-												if (espacio5_id != null) {
-													if ($("#"+espacio4_id).children().length == 0){
-														puedeComer = true
-													}
-												}
 												if (espacio5_id != null) {
 													if ($("#"+espacio5_id).children().length == 0){
 														puedeComer = true
@@ -775,11 +751,6 @@ function loadgame(fid){
 												}
 												if ($("#"+espacio2_id).children().hasClass("ficha1")||$("#"+espacio2_id).children().hasClass("ficha1dama")){
 													//Check 4 and 5 empty
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
-													}
 													if (espacio5_id != null) {
 														if ($("#"+espacio5_id).children().length == 0){
 															puedeComer = true
@@ -798,11 +769,6 @@ function loadgame(fid){
 														if ($("#"+espacio3_id).children().length == 0){
 															puedeComer = true
 														}
-													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
 													}	
 												}
 											}
@@ -811,11 +777,6 @@ function loadgame(fid){
 													//check 3, 4 and 5 empty
 													if (espacio3_id != null) {
 														if ($("#"+espacio3_id).children().length == 0){
-															puedeComer = true
-														}
-													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
 															puedeComer = true
 														}
 													}
@@ -831,19 +792,9 @@ function loadgame(fid){
 														puedeComer = true
 													}
 												}
-												if (espacio4_id != null) {
-													if ($("#"+espacio4_id).children().length == 0){
-														puedeComer = true
-													}
-												}	
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha1")||$("#"+espacio2_id).children().hasClass("ficha1dama")){
 												//check 4,5
-												if (espacio4_id != null) {
-													if ($("#"+espacio4_id).children().length == 0){
-														puedeComer = true
-													}
-												}
 												if (espacio5_id != null) {
 													if ($("#"+espacio5_id).children().length == 0){
 														puedeComer = true
@@ -898,11 +849,6 @@ function loadgame(fid){
 												}
 												if ($("#"+espacio2_id).children().hasClass("ficha1")||$("#"+espacio2_id).children().hasClass("ficha1dama")){
 													//Check 4 and 5 empty
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
-													}
 													if (espacio5_id != null) {
 														if ($("#"+espacio5_id).children().length == 0){
 															puedeComer = true
@@ -922,11 +868,6 @@ function loadgame(fid){
 														if ($("#"+espacio3_id).children().length == 0){
 															puedeComer = true
 														}
-													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
-															puedeComer = true
-														}
 													}	
 												}
 											}
@@ -935,11 +876,6 @@ function loadgame(fid){
 													//check 3, 4 and 5 empty
 													if (espacio3_id != null) {
 														if ($("#"+espacio3_id).children().length == 0){
-															puedeComer = true
-														}
-													}
-													if (espacio4_id != null) {
-														if ($("#"+espacio4_id).children().length == 0){
 															puedeComer = true
 														}
 													}
@@ -955,19 +891,9 @@ function loadgame(fid){
 														puedeComer = true
 													}
 												}
-												if (espacio4_id != null) {
-													if ($("#"+espacio5_id).children().length == 0){
-														puedeComer = true
-													}
-												}	
 											}
 											if ($("#"+espacio2_id).children().hasClass("ficha1")||$("#"+espacio2_id).children().hasClass("ficha1dama")){
 												//check 4,5
-												if (espacio4_id != null) {
-													if ($("#"+espacio4_id).children().length == 0){
-														puedeComer = true
-													}
-												}
 												if (espacio5_id != null) {
 													if ($("#"+espacio5_id).children().length == 0){
 														puedeComer = true
@@ -1000,4 +926,109 @@ function loadgame(fid){
 			});
 		}
 	}
+	
+	function obligaComer(tipoFicha){
+		var casilla
+		//Para las fichas blancas
+		if (tipoFicha == 1){
+			var irow = 0;
+			
+			while (irow < 8){
+				var jcol = 0;	
+				while (jcol < 8){
+					casilla = 'row-' + (irow) + "-col-" + (jcol);
+					if ($("#"+casilla).children().hasClass("ficha1")){
+						
+						var espacio1_id = null; 
+						var espacio2_id = null; 
+						var espacio3_id = null; 
+						var espacio5_id = null; 
+						
+						if (irow != 0){
+							espacio1_id = 'row-' + (irow - 1) + "-col-" + (jcol-1);
+							espacio2_id = 'row-' + (irow - 1) + "-col-" + (jcol+1);
+							if (irow != 1){
+								espacio4_id = 'row-' + (irow - 2) + "-col-" + (jcol);
+								if (jcol >=2 ){
+									espacio3_id = 'row-' + (irow - 2) + "-col-" + (jcol-2);
+								}
+								if (jcol <= 6){
+									espacio5_id = 'row-' + (irow - 2) + "-col-" + (jcol+2);
+								}
+							}		
+						}
+						if (espacio5_id != null && $("#"+espacio5_id).children().length == 0){
+							if ($("#"+espacio2_id).children().hasClass("ficha2dama") || $("#"+espacio2_id).children().hasClass("ficha2")){
+								console.log("trueeee")
+								return true;
+							}
+						} 
+						if (espacio3_id != null && $("#"+espacio3_id).children().length == 0){
+							if ($("#"+espacio1_id).children().hasClass("ficha2dama") || $("#"+espacio1_id).children().hasClass("ficha2")){
+								console.log("trueeee")
+								return true;
+							}
+						} 	
+					} 
+					if ($("#"+casilla).children().hasClass("ficha1dama")){
+						1+1
+					}
+					jcol++;
+				}
+			irow++;
+			}
+			console.log("falseeeee")
+		return false;
+		} else {  //Para las fichas negras
+			var irow = 0;
+			while (irow < 8){
+				var jcol = 0;
+				while (jcol < 8){
+					casilla = 'row-' + (irow) + "-col-" + (jcol);
+					if ($("#"+casilla).children().hasClass("ficha2")){
+						var espacio1_id = null;
+						var espacio2_id = null;
+						var espacio3_id = null;
+						var espacio4_id = null;
+						var espacio5_id = null;
+						if (irow != 7){
+							espacio1_id = 'row-' + (irow + 1) + "-col-" + (jcol-1);
+							espacio2_id = 'row-' + (irow + 1) + "-col-" + (jcol+1);
+							if (irow != 6){
+								espacio4_id = 'row-' + (irow + 2) + "-col-" + (jcol);
+								if (jcol >=2 ){
+									espacio3_id = 'row-' + (irow + 2) + "-col-" + (jcol-2);
+								}
+								if (jcol <= 6){
+									espacio5_id = 'row-' + (irow + 2) + "-col-" + (jcol+2);
+								}
+							}		
+						}
+						if (espacio5_id != null && $("#"+espacio5_id).children().length == 0){
+							if ($("#"+espacio2_id).children().hasClass("ficha1dama") || $("#"+espacio2_id).children().hasClass("ficha1")){
+								console.log("trueeeeee")
+								return true;
+							}
+						} 
+						if (espacio3_id != null && $("#"+espacio3_id).children().length == 0){
+							if ($("#"+espacio1_id).children().hasClass("ficha1dama") || $("#"+espacio1_id).children().hasClass("ficha1")){
+								console.log("trueeeeee")
+								return true;
+							}
+						} 	
+					} 
+					if ($("#"+casilla).children().hasClass("ficha2dama")){
+						1+1
+					}
+					jcol++;
+				}
+				irow++;
+			}
+		console.log("falseeeeee")
+		return false;
 		}
+		
+	}
+}
+
+//HAY PROBLEMA CUANDO COME VARIAS
