@@ -5,7 +5,8 @@
 		var posicionDrop;
 		var idt;
 $(document).ready(function() {
-		createTable();	
+	loadgame(1)	;
+	createTable();	
 
 });
 function createTable(){
@@ -1033,7 +1034,7 @@ function loadgame(fid){
 		}
 		
 	}
-}
+
 
 //HAY PROBLEMA CUANDO COME VARIAS
 
@@ -1639,3 +1640,4 @@ function loadgame(fid){
 					}
 				}
 					//---FIN mOVE
+			
